@@ -15,6 +15,10 @@ spec:
       paths:
       - path: /
         backend:
+          serviceName: wordpress
+          servicePort: 80
+      - path: /great-things/
+        backend:
           serviceName: martinschurig-com
           servicePort: 80
   tls:
