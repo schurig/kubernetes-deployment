@@ -13,10 +13,10 @@ spec:
   - host: test.martinschurig.com
     http:
       paths:
-      - backend:
+      - path: /
+        backend:
           serviceName: martinschurig-com
           servicePort: 80
-        path: /
   tls:
   - hosts:
     - test.martinschurig.com
