@@ -1,3 +1,11 @@
+    apt update
+    apt -y -o Dpkg::Options::="--force-confnew" install base-files
+    apt -y upgrade
+    apt -y install apt-transport-https
+
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+    | apt-key add -
+
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \

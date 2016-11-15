@@ -10,7 +10,7 @@ metadata:
     kubernetes.io/tls-acme: "true"
 spec:
   rules:
-  - host: test2.martinschurig.com
+  - host: test.martinschurig.com
     http:
       paths:
       - backend:
@@ -19,5 +19,5 @@ spec:
         path: /
   tls:
   - hosts:
-    - test2.martinschurig.com
+    - test.martinschurig.com
     secretName: martinschurig-com-tls
