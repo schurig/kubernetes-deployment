@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: wordpress-mysql
+  name: wordpress-mariadb
   labels:
     app: wordpress
 spec:
@@ -11,26 +11,26 @@ spec:
     metadata:
       labels:
         app: wordpress
-        tier: mysql
+        tier: mariadb
     spec:
       containers:
-      - image: mysql:5.7
-        name: mysql
+      - image: mariadb:10.1
+        name: mariadb
         env:
-          # $ kubectl create secret generic mysql-pass --from-file=password.txt
+          # $ kubectl create secret generic mariadb-pass --from-file=password.txt
           # make sure password.txt does not have a trailing newline
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-pass
+              name: mariadb-pass
               key: password.txt
         ports:
         - containerPort: 3306
-          name: mysql
+          name: mariadb
         volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
+        - name: mariadb-persistent-storage
+          mountPath: /var/lib/mariadb
       volumes:
-      - name: mysql-persistent-storage
+      - name: mariadb-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          claimName: mariadb-pv-claim
