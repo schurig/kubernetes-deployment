@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: martinschurig-com
+  namespace: default
+  #labels:
+  #  app: martinschurig-com
+  #  stage: beta
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: martinschurig-com
+    stage: beta

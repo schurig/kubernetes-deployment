@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: martinschurig-com
+  namespace: default
+  labels:
+    app: martinschurig-com
+    stage: beta
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: martinschurig-com
+      labels:
+        app: martinschurig-com
+        stage: beta
+    spec:
+      containers:
+      - name: martinschurig-com
+        image: schurig/martinschurig.com
+        ports:
+        - name: nginx
+          containerPort: 80

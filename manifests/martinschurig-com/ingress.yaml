@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: martinschurig-com
+  namespace: default
+  labels:
+    app: martinschurig-com
+    component: ingress
+  annotations:
+    kubernetes.io/tls-acme: "true"
+spec:
+  rules:
+  - host: test.martinschurig.com
+    http:
+      paths:
+      - backend:
+          serviceName: martinschurig-com
+          servicePort: 80
+        path: /
+  tls:
+  - hosts:
+    - test.martinschurig.com
+    secretName: martinschurig-com-tls
