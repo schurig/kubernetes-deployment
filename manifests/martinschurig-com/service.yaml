@@ -7,6 +7,7 @@ metadata:
   #  app: martinschurig-com
   #  stage: beta
 spec:
+  type: NodePort
   ports:
   - port: 80
     protocol: TCP

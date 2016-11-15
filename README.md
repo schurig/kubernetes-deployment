@@ -1,17 +1,22 @@
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
-cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
-deb http://apt.kubernetes.io/ kubernetes-xenial main
-EOF
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+      | apt-key add -
 
-apt-get update
+    cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
+    deb http://apt.kubernetes.io/ kubernetes-xenial main
+    EOF
 
-apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
+    apt-get update
 
-kubeadm init --api-advertise-addresses=46.101.166.56
+    apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
 
-kubectl taint nodes --all dedicated-
+    kubeadm init --api-advertise-addresses=51.15.41.67
 
-kubectl apply -f https://git.io/weave-kube
+    kubectl taint nodes --all dedicated-
 
-kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+    kubectl apply -f https://git.io/weave-kube
+
+    kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+
+    scp root@51.15.41.67:/etc/kubernetes/admin.conf .
