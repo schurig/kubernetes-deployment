@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: zammad
+  namespace: default
+  labels:
+    app: zammad
+    component: ingress
+  annotations:
+    kubernetes.io/tls-acme: "true"
+spec:
+  rules:
+  - host: zammad.vioa.de
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: zammad
+          servicePort: 80
+  tls:
+  - hosts:
+    - zammad.vioa.de
+    secretName: zammad-tls

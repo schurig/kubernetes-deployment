@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: zammad
+  labels:
+    app: zammad
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zammad
+    spec:
+      containers:
+      - image: zammad/zammad
+        name: zammad
+        resources:
+          limits:
+            cpu: 3000m
+            memory: 3000Mi
+        ports:
+        - containerPort: 80
+          name: zammad
+        volumeMounts:
+        - name: zammad-persistent-storage
+          mountPath: /data/zammad
+      volumes:
+      - name: zammad-persistent-storage
+        persistentVolumeClaim:
+          claimName: zammad-pv-claim

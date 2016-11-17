@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zammad
+  labels:
+    app: zammad
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+  selector:
+    app: zammad
