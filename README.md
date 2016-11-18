@@ -1,28 +1,32 @@
-    apt update
-    apt -y -o Dpkg::Options::="--force-confnew" install base-files
-    apt -y upgrade
-    apt -y install apt-transport-https
+## Setup server
 
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+```
+apt update
+apt -y -o Dpkg::Options::="--force-confnew" install base-files
+apt -y upgrade
+apt -y install apt-transport-https
 
-    cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
-    deb http://apt.kubernetes.io/ kubernetes-xenial main
-    EOF
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
-    apt-get update
+cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
 
-    apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
+apt-get update
 
-    kubeadm init --api-advertise-addresses=51.15.41.67
+apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
 
-    kubectl taint nodes --all dedicated-
+kubeadm init --api-advertise-addresses=51.15.41.67
 
-    kubectl apply -f https://git.io/weave-kube
+kubectl taint nodes --all dedicated-
 
-    kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+kubectl apply -f https://git.io/weave-kube # install dns so pods find each other
 
-    scp root@51.15.41.67:/etc/kubernetes/admin.conf .
+kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml # install kubernetes dashboard
 
+scp root@51.15.41.67:/etc/kubernetes/admin.conf .
+```
 
+## Deploy apps
 
-    kubectl apply --recursive --filename ./manifests/
+`kubectl apply --recursive --filename ./manifests/`
