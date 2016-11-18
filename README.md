@@ -22,3 +22,7 @@
     kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
 
     scp root@51.15.41.67:/etc/kubernetes/admin.conf .
+
+
+
+    kubectl apply --recursive --filename ./manifests/
