@@ -5,15 +5,21 @@ metadata:
   namespace: default
   labels:
     app: martinschurig-com
-    stage: beta
+    stage: prod
 spec:
   replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
   template:
     metadata:
       name: martinschurig-com
       labels:
         app: martinschurig-com
-        stage: beta
+        stage: prod
     spec:
       containers:
       - name: martinschurig-com
@@ -21,3 +27,5 @@ spec:
         ports:
         - name: nginx
           containerPort: 80
+      imagePullSecrets:
+      - name: docker-hub-registry-key

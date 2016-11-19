@@ -3,9 +3,6 @@ kind: Service
 metadata:
   name: martinschurig-com
   namespace: default
-  #labels:
-  #  app: martinschurig-com
-  #  stage: beta
 spec:
   type: NodePort
   ports:
@@ -13,4 +10,4 @@ spec:
     protocol: TCP
   selector:
     app: martinschurig-com
-    stage: beta
+    stage: prod
