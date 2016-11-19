@@ -29,3 +29,4 @@ spec:
           containerPort: 80
       imagePullSecrets:
       - name: docker-hub-registry-key
+      # http://kubernetes.io/docs/user-guide/images/
