@@ -10,18 +10,14 @@ metadata:
     kubernetes.io/tls-acme: "true"
 spec:
   rules:
-  - host: test.martinschurig.com
+  - host: martinschurig.com
     http:
       paths:
       - path: /
-        backend:
-          serviceName: wordpress
-          servicePort: 80
-      - path: /great-things/
         backend:
           serviceName: martinschurig-com
           servicePort: 80
   tls:
   - hosts:
-    - test.martinschurig.com
+    - martinschurig.com
     secretName: martinschurig-com-tls
