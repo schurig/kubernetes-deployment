@@ -27,6 +27,15 @@ spec:
         ports:
         - name: nginx
           containerPort: 80
+        livenessProbe:
+          # an http probe
+          httpGet:
+            path: /
+            port: 80
+          # length of time to wait for a pod to initialize
+          # after pod startup, before applying health checking
+          initialDelaySeconds: 30
+          timeoutSeconds: 2
       imagePullSecrets:
       - name: docker-hub-registry-key
       # http://kubernetes.io/docs/user-guide/images/
