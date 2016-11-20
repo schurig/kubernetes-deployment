@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nrw-freigegeben
+  namespace: default
+  labels:
+    app: nrw-freigegeben
+    stage: prod
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  template:
+    metadata:
+      name: nrw-freigegeben
+      labels:
+        app: nrw-freigegeben
+        stage: prod
+    spec:
+      containers:
+      - name: nrw-freigegeben
+        image: schurig/nrw_freigegeben
+        imagePullPolicy: Always
+        env:
+          - name: TWITTER_CONSUMER_KEY
+            valueFrom:
+              secretKeyRef:
+                name: nrw-freigegeben-twitter-credentials
+                key: consumer-key
+          - name: TWITTER_CONSUMER_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: nrw-freigegeben-twitter-credentials
+                key: consumer-secret
+          - name: TWITTER_ACCESS_TOKEN_KEY
+            valueFrom:
+              secretKeyRef:
+                name: nrw-freigegeben-twitter-credentials
+                key: access-token-key
+          - name: TWITTER_ACCESS_TOKEN_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: nrw-freigegeben-twitter-credentials
+                key: access-token-secret
+      imagePullSecrets:
+      - name: docker-hub-registry-key
+      # http://kubernetes.io/docs/user-guide/images/
