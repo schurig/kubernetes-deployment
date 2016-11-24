@@ -22,7 +22,7 @@ spec:
         stage: prod
     spec:
       containers:
-      - name: martinschurig-com
+      - name: web
         image: schurig/martinschurig.com
         ports:
         - name: nginx
