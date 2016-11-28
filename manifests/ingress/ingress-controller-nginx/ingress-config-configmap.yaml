@@ -10,3 +10,4 @@ data:
   server-name-hash-bucket-size: "256"
   server-name-hash-max-size: "1024"
   body-size: "1024m"
+  error-log-level: warn
