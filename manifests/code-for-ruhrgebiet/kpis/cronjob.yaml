@@ -1,0 +1,80 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: kpis
+  namespace: code-for-ruhrgebiet
+spec:
+  schedule: "*/30 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: job
+            image: codeforruhrgebiet/kpis
+            args:
+            - ruby
+            - run.rb
+            env:
+            - name: FIREBASE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-credentials
+                  key: secret
+            - name: FIREBASE_USER_UUID
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-credentials
+                  key: user-uuid
+            - name: FIREBASE_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: firebase-credentials
+                  key: user-password
+            - name: MAILINGLIST_INFO_URL
+              value: "https://lists.okfn.org/mailman/listinfo/codeforruhrgebiet"
+            - name: MAILINGLIST_SLUG
+              value: "codeforruhrgebiet"
+            - name: MAILINGLIST_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: mailinglist-credentials
+                  key: email
+            - name: MAILINGLIST_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mailinglist-credentials
+                  key: password
+            - name: FACEBOOK_SHAREBUTTON_URL
+              value: "https://www.facebook.com/v2.5/plugins/like.php?app_id=113869198637480&channel=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D42%23cb%3Df1acc47a6530e2a%26domain%3Ddevelopers.facebook.com%26origin%3Dhttps%253A%252F%252Fdevelopers.facebook.com%252Ff24a252c615252c%26relation%3Dparent.parent&container_width=613&href=https%3A%2F%2Fwww.facebook.com%2Fcodeforruhrgebiet&layout=button_count&locale=de_DE&sdk=joey&share=false&show_faces=false"
+            - name: MEETUP_GROUP_SLUG
+              value: "OK-Lab-Ruhrgebiet"
+            - name: MEETUP_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: meetup-credentials
+                  key: api-key
+            - name: TWITTER_SCREEN_NAME
+              value: "codeforruhr"
+            - name: TWITTER_CONSUMER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: twitter-credentials
+                  key: consumer-key
+            - name: TWITTER_CONSUMER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: twitter-credentials
+                  key: consumer-secret
+            - name: TWITTER_ACCESS_TOKEN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: twitter-credentials
+                  key: access-token-key
+            - name: TWITTER_ACCESS_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: twitter-credentials
+                  key: access-token-secret
