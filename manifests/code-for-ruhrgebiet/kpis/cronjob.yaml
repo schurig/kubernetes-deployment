@@ -10,7 +10,7 @@ spec:
     spec:
       template:
         spec:
-          restartPolicy: Never
+          restartPolicy: OnFailure
           containers:
           - name: job
             image: codeforruhrgebiet/kpis
